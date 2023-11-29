@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ proyecto.nombre }}</h2>
+    <p>Fecha de Inicio: {{ proyecto.fecha_inicio }}</p>
+    <p>Fecha de Fin: {{ proyecto.fecha_fin }}</p>
+    <p>Descripción: {{ proyecto.descripcion }}</p>
+    <p>Materia: {{ proyecto.materia.nombre }}</p>
+{% endblock %}

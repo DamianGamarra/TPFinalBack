@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Crear Proyecto</h2>
+
+    <form method="post" style="max-width: 500px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <label for="{{ form.materia.id_for_label }}" style="display: block; margin-top: 10px;">Materia:</label>
+        {{ form.materia }}
+        
+        <button type="submit" style="background-color: #28a745; color: white; padding: 0.5em 1em; border: none; cursor: pointer; margin-top: 10px;">
+            Guardar Proyecto
+        </button>
+    </form>
+{% endblock %}

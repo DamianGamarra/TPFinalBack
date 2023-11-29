@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Proyectos</h2>
+
+    {% if proyectos %}
+        <div class="proyectos-lista">
+            {% for proyecto in proyectos %}
+                <div class="proyecto-item">
+                    <h3><a href="{% url 'proyectos:detalle_proyecto' proyecto.id %}">{{ proyecto.nombre }}</a></h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                    <p>Fecha de Inicio: {{ proyecto.fecha_inicio }}</p>
+                    <p>Fecha de Fin: {{ proyecto.fecha_fin }}</p>
+                    <p>Materia: {{ materias.nombre }}</p>
+                    
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser or (user.alumno and user.alumno == proyecto.alumno) %}
+                            <a href="{% url 'proyectos:editar_proyecto' pk=proyecto.id %}">Editar</a>
+                            <a href="{% url 'proyectos:eliminar_proyecto' pk=proyecto.id %}">Eliminar</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay proyectos disponibles.</p>
+    {% endif %}
+{% endblock %}

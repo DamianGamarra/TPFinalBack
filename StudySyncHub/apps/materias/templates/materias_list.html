@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Lista de Materias</h2>
+
+    {% if materias %}
+        <ul>
+            {% for materia in materias %}
+                <li>{{ materia.nombre }} - Profesor: {{ materia.profesor }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay materias disponibles.</p>
+    {% endif %}
+{% endblock %}

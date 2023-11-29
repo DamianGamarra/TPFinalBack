@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySyncHub</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>StudySyncHub</h1>
+    </header>
+
+    <nav>
+        <a href="{% url 'crear_alumno' %}">Alumno</a>
+        <a href="{% url 'lista_proyectos' %}">Proyectos</a>
+        
+        {% if user.is_superuser %}
+        <a href="{% url 'materias_list' %}">Materias</a>
+        {% endif %}
+        <button id="registrarseBtn">Registrarse</button>
+
+        <script>
+            document.getElementById('registrarseBtn').addEventListener('click', function() {
+                window.location.href = "{% url 'crear_alumno' %}";
+            });
+        </script>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Derechos reservados de Damián Gamarra</p>
+    </footer>
+
+</body>
+</html>

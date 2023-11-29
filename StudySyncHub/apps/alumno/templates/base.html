@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySyncHub</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        .boton {
+            background-color: #28a745;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            cursor: pointer;
+        }
+
+        .boton:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>StudySyncHub</h1>
+    </header>
+
+    <nav>
+        {% if user.is_authenticated %}
+        {% if not user.alumno %}
+        <a href="{% url 'crear_alumno' %}">Alumno</a>
+        {% else %}
+
+
+        <a href="{% url 'lista_proyectos' %}">Proyectos</a>
+        {% endif %}
+        {% endif %}
+        
+        {% if user.is_superuser %}
+
+        <a href="{% url 'materias_list' %}">Materias</a>
+        {% endif %}
+
+        {% if not user.alumno %}
+        <a class = "boton" href="{% url 'login' %}">login</a> 
+        {% else %}
+        <a class = "boton" href="{% url 'custom_logout' %}">Cerrar Sesión</a>
+        {% endif %}
+        <!-- agregar un nuevo boton con el registrarse igual al login-->
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Derechos reservados de Damián Gamarra</p>
+    </footer>
+
+</body>
+</html>

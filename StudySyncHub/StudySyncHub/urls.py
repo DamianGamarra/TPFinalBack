@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), name='home'),
     path("login/", include("apps.custom_user.urls")),
+    path("register/", include("apps.custom_user.urls")),
     path("alumno/", include("apps.alumno.urls")),
     path('materias/', include('apps.materias.urls')),
     path('proyectos/', include('apps.proyectos.urls')),

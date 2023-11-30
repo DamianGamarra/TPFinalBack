@@ -9,7 +9,6 @@ class Materia(models.Model):
         ('Ingles', 'Ingles'),
     ]
     nombre = models.CharField(max_length=100, choices=MATERIA_CHOICES)
-    profesor = models.CharField(max_length=100, blank=True)
     
     def __str__(self) :
-        return self.get_nombre_display()
+        return self.nombre

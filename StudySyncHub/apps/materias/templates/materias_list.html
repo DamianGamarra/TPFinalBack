@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Lista de Materias</h2>
+    <h2>Listado de Materias</h2>
 
-    {% if materias %}
-        <ul>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for materia in materias %}
-                <li>{{ materia.nombre }} - Profesor: {{ materia.profesor }}</li>
+                <tr>
+                    <td>{{ materia.id }}</td>
+                    <td>{{ materia.nombre }}</td>
+                </tr>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay materias disponibles.</p>
-    {% endif %}
+        </tbody>
+    </table>
 {% endblock %}

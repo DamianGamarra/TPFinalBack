@@ -71,13 +71,13 @@
 
     <nav>
         {% if user.is_authenticated %}
-        {% if not user.alumno %}
-        <a href="{% url 'crear_alumno' %}">Alumno</a>
-        {% else %}
+            {% if not user.alumno %}
+            <a href="{% url 'crear_alumno' %}">Alumno</a>
+            {% else %}
 
-
-        <a href="{% url 'lista_proyectos' %}">Proyectos</a>
-        {% endif %}
+            <a href="{% url 'lista_discusiones' %}">Discusiones</a>   
+            <a href="{% url 'lista_proyectos' %}">Proyectos</a>
+            {% endif %}
         {% endif %}
         
         {% if user.is_superuser %}

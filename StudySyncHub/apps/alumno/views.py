@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from .models import Alumno
 from django.shortcuts import get_list_or_404
-from django.views.generic import TemplateView , CreateView
+from django.views.generic import TemplateView , CreateView , DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
@@ -26,16 +26,14 @@ class CrearAlumno(LoginRequiredMixin,CreateView):
     def get_success_url(self):
         return reverse_lazy("perfil_alumno", kwargs={'pk': self.object.pk})
 
-class PerfilAlumno(LoginRequiredMixin,TemplateView):
+class PerfilAlumnoView(LoginRequiredMixin, DetailView):
     model = Alumno
     template_name = 'perfil_alumno.html'
+    context_object_name = 'alumno'
 
-    def get_context_data(self, **kwargs) :
-        context = super().get_context_data(**kwargs)
-        alumnos = get_list_or_404(Alumno, usuario=self.request.user)
+    def get_object(self, queryset=None):
         
-        context["alumnos"] = alumnos
-        return context
+        return Alumno.objects.get(usuario=self.request.user)
         
         
         

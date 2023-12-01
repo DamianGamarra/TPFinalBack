@@ -28,6 +28,7 @@ urlpatterns = [
     path("alumno/", include("apps.alumno.urls")),
     path('materias/', include('apps.materias.urls')),
     path('proyectos/', include('apps.proyectos.urls')),
+    path('discusiones/',include("apps.discusion.urls"))
     
     
 ]

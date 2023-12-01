@@ -66,9 +66,9 @@
                                     </button>
                                 </form>
                                 {% for message in messages %}
-                                <div class="mdl-textfield">
-                                    <p class="error-message">{{ message }}</p>
-                                </div>
+                                    <div class="mdl-textfield">
+                                        <p class="{% if message.tags == 'error' %}error-message{% endif %}">{{ message }}</p>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>

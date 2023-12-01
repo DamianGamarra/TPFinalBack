@@ -1,27 +1,38 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import View
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
+from django.views.generic import CreateView
+from django.shortcuts import redirect
 
-class RegistroUsuarioView(View):
+
+class RegistroUsuarioView(CreateView):
     template_name = 'registro.html'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
 
-    def get(self, request):
-        form = CustomUserCreationForm()
-        return render(request, self.template_name, {'form': form})
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Usuario creado exitosamente.')
+        return response
 
-    def post(self, request):
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')  
-        return render(request, self.template_name, {'form': form})
+    def form_invalid(self, form):
+        messages.error(self.request, 'Error al crear el usuario. Por favor, ingrese correctamente los datos.')
+        return super().form_invalid(form)
 
 class CustomLoginView(LoginView):
     template_name = "custom_login.html"
+ 
+    def form_valid(self, form):
+        
+        response = super().form_valid(form)
+
+        
+        if not self.request.user.alumno:
+            
+            return redirect('crear_alumno.html')
+
+        return response   
     
     
     def form_invalid(self, form):

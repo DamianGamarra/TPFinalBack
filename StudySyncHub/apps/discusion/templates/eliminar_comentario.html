@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Eliminar Comentario</h2>
+  {% if user == comentario.autor or user.is_superuser %}
+    <p>¿Estás seguro de que deseas eliminar este comentario?</p>
+    <form method="post" action="{% url 'eliminar_comentario' comentario.id %}">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-danger" value="Eliminar">
+    </form>
+    <a href="{% url 'lista_discusiones' %}" class="btn btn-secondary">Cancelar</a>
+  {% else %}
+    <p>No tienes permisos para eliminar este comentario.</p>
+    <a href="{% url 'lista_discusiones' %}" class="btn btn-secondary">Volver a la lista de discusiones</a>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+            <h2>Lista de Discusiones</h2>
+
+            {% if discusiones %}
+                <ul>
+                    {% for discusion in discusiones %}
+                        <li>
+                            <a href="{% url 'detalles_discusion' discusion.id %}">{{ discusion.titulo }}</a>
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay discusiones disponibles.</p>
+            {% endif %}
+
+            <a href="{% url 'crear_discusion' %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                Crear Nueva Discusión
+            </a>
+        </div>
+    </div>
+{% endblock %}

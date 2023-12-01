@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
+            <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">{{ discusion.titulo }}</h2>
+                </div>
+                <div class="mdl-card mdl-shadow--6dp">
+                    <div class="mdl-card__supporting-text">
+                        <p>Contenido: {{ discusion.contenido }}</p>
+
+                        {% if user.is_authenticated %}
+                            {% if user == discusion.creador or user.is_superuser %}
+                                <a href="{% url 'editar_discusion' discusion.id %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                    Editar Discusión
+                                </a>
+                                <a href="{% url 'eliminar_discusion' discusion.id %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                    Eliminar Discusión
+                                </a>
+                            {% endif %}
+                        {% endif %}
+
+                        <h3>Agregar Comentario</h3>
+                        <form method="post" action="{% url 'detalles_discusion' discusion.id %}">
+                            {% csrf_token %}
+                            {{ comentario_form.as_p }}
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                Agregar Comentario
+                            </button>
+                        </form>
+
+                        <h3>Comentarios</h3>
+                        {% for comentario in comentarios %}
+                            <div>
+                                <p>{{ comentario.contenido }}</p>
+                                <p>Autor: {{ comentario.autor.username }}</p>
+                                
+                                {% if user == comentario.autor or user.is_superuser %}
+                                    <a href="{% url 'editar_comentario' comentario.id %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                        Editar Comentario
+                                    </a>
+                                    <a href="{% url 'eliminar_comentario' comentario.id %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                                        Eliminar Comentario
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
